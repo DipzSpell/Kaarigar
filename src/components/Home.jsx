@@ -1,6 +1,12 @@
 import { categories, societies, workers } from '../data.js'
 import { strings } from '../strings.js'
 
+const LANGS = [
+  { id: 'en', label: 'EN' },
+  { id: 'hinglish', label: 'Hin' },
+  { id: 'hindi', label: 'हिं' },
+]
+
 function ChainDivider() {
   return (
     <svg
@@ -50,29 +56,22 @@ export default function Home({
         </div>
 
         <div className="flex h-11 shrink-0 items-center">
-          <button
-            type="button"
-            onClick={() => onLangChange('hindi')}
-            className={`flex h-11 items-center text-[15px] ${
-              lang === 'hindi'
-                ? 'font-semibold text-amberdeep'
-                : 'text-inksoft'
-            }`}
-          >
-            हिं
-          </button>
-          <span className="mx-2 h-4 w-px bg-line" />
-          <button
-            type="button"
-            onClick={() => onLangChange('hinglish')}
-            className={`flex h-11 items-center text-[15px] ${
-              lang === 'hinglish'
-                ? 'font-semibold text-amberdeep'
-                : 'text-inksoft'
-            }`}
-          >
-            EN
-          </button>
+          {LANGS.map((option, index) => (
+            <div key={option.id} className="flex h-11 items-center">
+              {index > 0 && <span className="mx-2 h-4 w-px bg-line" />}
+              <button
+                type="button"
+                onClick={() => onLangChange(option.id)}
+                className={`flex h-11 items-center text-[15px] ${
+                  lang === option.id
+                    ? 'font-semibold text-amberdeep'
+                    : 'text-inksoft'
+                }`}
+              >
+                {option.label}
+              </button>
+            </div>
+          ))}
         </div>
       </header>
 
@@ -121,7 +120,7 @@ export default function Home({
               <span className="block text-[15px] font-semibold text-ink">
                 {lang === 'hindi' ? category.hindi : category.name}
               </span>
-              {lang !== 'hindi' && (
+              {lang === 'hinglish' && (
                 <span className="mt-1 block text-[13px] text-inksoft">
                   {category.hindi}
                 </span>

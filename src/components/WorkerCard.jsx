@@ -11,8 +11,14 @@ export default function WorkerCard({
   const t = strings[lang]
   const shown = worker.vouchedBy.slice(0, 3)
   const remaining = worker.vouchCount - shown.length
+  const moreSuffix =
+    remaining > 0
+      ? lang === 'en'
+        ? ` and ${remaining} more`
+        : ` ${t.more} ${remaining} ${t.more}`
+      : ''
   const flats =
-    shown.join(', ') + (remaining > 0 ? ` ${t.more} ${remaining} ${t.more}` : '')
+    shown.join(', ') + moreSuffix
 
   const waHref =
     'https://wa.me/91' +

@@ -85,7 +85,8 @@ function PitchPanel() {
 function readLang() {
   try {
     const raw = localStorage.getItem(LANG_KEY)
-    return raw === 'hindi' ? 'hindi' : 'hinglish'
+    if (raw === 'en' || raw === 'hindi' || raw === 'hinglish') return raw
+    return 'hinglish'
   } catch {
     return 'hinglish'
   }
