@@ -23,7 +23,7 @@ export default function WorkerList({
       <button
         type="button"
         onClick={onBack}
-        className="flex h-11 items-center text-[15px] text-inksoft"
+        className="flex h-12 items-center text-[15px] text-inksoft transition-colors active:text-ink"
       >
         ← Wapas
       </button>

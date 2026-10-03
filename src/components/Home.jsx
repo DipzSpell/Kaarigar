@@ -53,7 +53,7 @@ export default function Home({ societyId, onSocietyChange, onCategorySelect }) {
         id="society"
         value={societyId}
         onChange={(event) => onSocietyChange(event.target.value)}
-        className="h-12 w-full rounded-card border border-line bg-card px-3.5 text-[15px] text-ink"
+        className="h-12 w-full rounded-card border border-line bg-card px-3.5 text-[15px] text-ink transition-colors active:bg-paper"
       >
         {societies.map((society) => (
           <option key={society.id} value={society.id}>
@@ -72,7 +72,7 @@ export default function Home({ societyId, onSocietyChange, onCategorySelect }) {
             key={category.id}
             type="button"
             onClick={() => onCategorySelect(category.id)}
-            className="min-h-24 rounded-card border border-line bg-card p-4 text-left"
+            className="min-h-24 rounded-card border border-line bg-card p-4 text-left transition-colors active:bg-paper"
           >
             <span className="block text-[15px] font-semibold text-ink">
               {category.name}

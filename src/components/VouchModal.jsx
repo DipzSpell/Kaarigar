@@ -60,7 +60,7 @@ export default function VouchModal({ worker, onClose, onConfirm }) {
 
           <button
             type="submit"
-            className="mt-4 flex h-12 w-full items-center justify-center rounded-[12px] bg-amber text-[15px] font-semibold text-ink"
+            className="mt-4 flex h-12 w-full items-center justify-center rounded-[12px] bg-amber text-[15px] font-semibold text-ink transition-colors active:bg-amberdeep"
           >
             Haan, maine bulaya tha
           </button>
@@ -69,7 +69,7 @@ export default function VouchModal({ worker, onClose, onConfirm }) {
         <button
           type="button"
           onClick={onClose}
-          className="flex h-11 w-full items-center justify-center text-[15px] text-inksoft"
+          className="flex h-12 w-full items-center justify-center text-[15px] text-inksoft transition-colors active:text-ink"
         >
           Rehne do
         </button>
