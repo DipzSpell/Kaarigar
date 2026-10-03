@@ -38,12 +38,12 @@ export default function WorkerList({
       </div>
 
       {list.length === 0 ? (
-        <div className="mt-12 text-center">
+        <div className="mt-6 rounded-card border border-dashed border-line bg-card p-8 text-center">
           <p className="text-[15px] text-ink">{t.empty}</p>
           <p className="mt-2 text-[13px] text-inksoft">{t.emptySub}</p>
         </div>
       ) : (
-        <div className="mt-5 flex flex-col gap-3">
+        <div className="mt-6 flex flex-col gap-3">
           {list.map((worker) => (
             <WorkerCard
               key={worker.id}

@@ -97,7 +97,7 @@ export default function Home({
         ))}
       </select>
 
-      <h2 className="mb-3 mt-7 text-[20px] font-semibold text-ink">
+      <h2 className="mb-6 mt-7 text-[20px] font-semibold text-ink">
         {t.whatWork}
       </h2>
 

@@ -38,7 +38,9 @@ export default function App() {
   }
 
   return (
-    <>
+    <div className="app-frame">
+      <div className="app-frame-bar">Kaarigar</div>
+
       {screen === 'home' && (
         <Home
           societyId={societyId}
@@ -58,6 +60,6 @@ export default function App() {
           onVouchClick={() => {}}
         />
       )}
-    </>
+    </div>
   )
 }
