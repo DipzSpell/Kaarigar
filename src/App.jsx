@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Home from './components/Home.jsx'
+import WorkerList from './components/WorkerList.jsx'
 
 export default function App() {
   const [screen, setScreen] = useState('home')
@@ -21,7 +22,14 @@ export default function App() {
         />
       )}
 
-      {screen === 'list' && <div />}
+      {screen === 'list' && (
+        <WorkerList
+          categoryId={categoryId}
+          societyId={societyId}
+          onBack={() => setScreen('home')}
+          onVouchClick={() => {}}
+        />
+      )}
     </>
   )
 }

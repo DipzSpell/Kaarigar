@@ -1,10 +1,9 @@
-import { categories, societies } from '../data.js'
+import { categories, societies, workers } from '../data.js'
 import WorkerCard from './WorkerCard.jsx'
 
 export default function WorkerList({
   categoryId,
   societyId,
-  workers,
   onBack,
   onVouchClick,
 }) {
@@ -23,7 +22,7 @@ export default function WorkerList({
       <button
         type="button"
         onClick={onBack}
-        className="flex h-12 items-center text-[15px] text-inksoft transition-colors active:text-ink"
+        className="flex h-11 items-center text-[15px] text-inksoft active:text-ink"
       >
         ← Wapas
       </button>

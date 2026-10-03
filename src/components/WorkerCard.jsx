@@ -17,7 +17,7 @@ export default function WorkerCard({ worker, onVouchClick }) {
       <p className="mt-0.5 text-[13px] text-inksoft">{worker.note}</p>
 
       <div className="my-3.5 w-full rounded-[12px] bg-ambertint p-3.5">
-        <div className="flex flex-wrap items-baseline gap-2">
+        <div className="flex items-baseline gap-2">
           <span className="text-[34px] font-semibold text-amberdeep">
             {worker.vouchCount}
           </span>
@@ -33,14 +33,14 @@ export default function WorkerCard({ worker, onVouchClick }) {
       <div className="mt-3.5 flex gap-2.5">
         <a
           href={'tel:' + worker.phone}
-          className="flex h-12 flex-1 items-center justify-center rounded-[12px] bg-amber text-[15px] font-semibold text-ink transition-colors active:bg-amberdeep"
+          className="flex h-12 flex-1 items-center justify-center rounded-[12px] bg-amber text-[15px] font-semibold text-ink active:bg-amberdeep"
         >
           Call karo
         </a>
         <button
           type="button"
           onClick={() => onVouchClick(worker)}
-          className="flex h-12 flex-1 items-center justify-center rounded-[12px] border border-line bg-card text-[15px] font-semibold text-ink transition-colors active:bg-paper"
+          className="flex h-12 flex-1 items-center justify-center rounded-[12px] border border-line bg-card text-[15px] font-semibold text-ink active:bg-paper"
         >
           Maine bulaya tha
         </button>
