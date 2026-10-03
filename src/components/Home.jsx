@@ -1,4 +1,5 @@
 import { categories, societies, workers } from '../data.js'
+import { strings } from '../strings.js'
 
 function ChainDivider() {
   return (
@@ -31,14 +32,48 @@ function ChainDivider() {
   )
 }
 
-export default function Home({ societyId, onSocietyChange, onCategorySelect }) {
+export default function Home({
+  societyId,
+  onSocietyChange,
+  onCategorySelect,
+  lang,
+  onLangChange,
+}) {
+  const t = strings[lang]
+
   return (
     <div className="mx-auto max-w-[480px] px-5 pt-6">
-      <header>
-        <h1 className="text-[34px] font-semibold text-ink">Kaarigar</h1>
-        <p className="text-[13px] tracking-[2px] text-inksoft">
-          Wo kaarigar jise aapke padosi bula chuke hain
-        </p>
+      <header className="flex items-start justify-between gap-3">
+        <div>
+          <h1 className="text-[34px] font-semibold text-ink">Kaarigar</h1>
+          <p className="text-[13px] tracking-[2px] text-inksoft">{t.tagline}</p>
+        </div>
+
+        <div className="flex h-11 shrink-0 items-center">
+          <button
+            type="button"
+            onClick={() => onLangChange('hindi')}
+            className={`flex h-11 items-center text-[15px] ${
+              lang === 'hindi'
+                ? 'font-semibold text-amberdeep'
+                : 'text-inksoft'
+            }`}
+          >
+            हिं
+          </button>
+          <span className="mx-2 h-4 w-px bg-line" />
+          <button
+            type="button"
+            onClick={() => onLangChange('hinglish')}
+            className={`flex h-11 items-center text-[15px] ${
+              lang === 'hinglish'
+                ? 'font-semibold text-amberdeep'
+                : 'text-inksoft'
+            }`}
+          >
+            EN
+          </button>
+        </div>
       </header>
 
       <ChainDivider />
@@ -47,7 +82,7 @@ export default function Home({ societyId, onSocietyChange, onCategorySelect }) {
         htmlFor="society"
         className="mb-1.5 block text-[13px] text-inksoft"
       >
-        Aapki society
+        {t.society}
       </label>
       <select
         id="society"
@@ -63,7 +98,7 @@ export default function Home({ societyId, onSocietyChange, onCategorySelect }) {
       </select>
 
       <h2 className="mb-3 mt-7 text-[20px] font-semibold text-ink">
-        Kya kaam hai?
+        {t.whatWork}
       </h2>
 
       <div className="grid grid-cols-2 gap-3">
@@ -84,18 +119,20 @@ export default function Home({ societyId, onSocietyChange, onCategorySelect }) {
               }`}
             >
               <span className="block text-[15px] font-semibold text-ink">
-                {category.name}
+                {lang === 'hindi' ? category.hindi : category.name}
               </span>
-              <span className="mt-1 block text-[13px] text-inksoft">
-                {category.hindi}
-              </span>
+              {lang !== 'hindi' && (
+                <span className="mt-1 block text-[13px] text-inksoft">
+                  {category.hindi}
+                </span>
+              )}
               {count > 0 ? (
                 <span className="mt-2.5 block text-[13px] text-amberdeep">
-                  {count} kaarigar
+                  {count} {t.countWord}
                 </span>
               ) : (
                 <span className="mt-2.5 block text-[13px] text-inksoft">
-                  Abhi koi nahi
+                  {t.noCount}
                 </span>
               )}
             </button>

@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react'
+import { strings } from '../strings.js'
 
-export default function VouchModal({ worker, onClose, onConfirm }) {
+export default function VouchModal({
+  worker,
+  lang = 'hinglish',
+  onClose,
+  onConfirm,
+}) {
+  const t = strings[lang]
   const [flat, setFlat] = useState('')
   const [error, setError] = useState(false)
 
@@ -32,14 +39,12 @@ export default function VouchModal({ worker, onClose, onConfirm }) {
         style={{ paddingBottom: 'calc(20px + env(safe-area-inset-bottom, 0px))' }}
         onClick={(event) => event.stopPropagation()}
       >
-        <h2 className="text-[20px] font-semibold text-ink">
-          Aapne inhe bulaya tha?
-        </h2>
+        <h2 className="text-[20px] font-semibold text-ink">{t.modalTitle}</h2>
         <p className="mt-1 text-[15px] text-inksoft">{worker.name}</p>
 
         <form className="mt-5" onSubmit={handleSubmit}>
           <label htmlFor="flat" className="mb-1.5 block text-[13px] text-inksoft">
-            Aapka flat number
+            {t.flatLabel}
           </label>
           <input
             id="flat"
@@ -49,20 +54,18 @@ export default function VouchModal({ worker, onClose, onConfirm }) {
               setFlat(event.target.value)
               if (error) setError(false)
             }}
-            placeholder="Jaise B-402"
+            placeholder={t.flatPlaceholder}
             className="h-12 w-full rounded-card border border-line px-3.5 text-[15px] text-ink"
           />
           {error && (
-            <p className="mt-1.5 text-[13px] text-red-600">
-              Flat number daal do
-            </p>
+            <p className="mt-1.5 text-[13px] text-red-600">{t.flatError}</p>
           )}
 
           <button
             type="submit"
             className="mt-4 flex h-12 w-full items-center justify-center rounded-[12px] bg-amber text-[15px] font-semibold text-ink transition-colors active:bg-amberdeep"
           >
-            Haan, maine bulaya tha
+            {t.confirm}
           </button>
         </form>
 
@@ -71,7 +74,7 @@ export default function VouchModal({ worker, onClose, onConfirm }) {
           onClick={onClose}
           className="flex h-12 w-full items-center justify-center text-[15px] text-inksoft transition-colors active:text-ink"
         >
-          Rehne do
+          {t.cancel}
         </button>
       </div>
     </div>
