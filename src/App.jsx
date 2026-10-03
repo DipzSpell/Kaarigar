@@ -6,7 +6,25 @@ import { strings } from './strings.js'
 import { workers as baseWorkers } from './data.js'
 
 const LANG_KEY = 'kaarigar-lang'
+const THEME_KEY = 'kaarigar-theme'
 const STORAGE_KEY = 'kaarigar-vouches'
+
+function readTheme() {
+  try {
+    const raw = localStorage.getItem(THEME_KEY)
+    return raw === 'dark' ? 'dark' : 'light'
+  } catch {
+    return 'light'
+  }
+}
+
+function writeTheme(theme) {
+  try {
+    localStorage.setItem(THEME_KEY, theme)
+  } catch {
+    // storage unavailable — fall back silently
+  }
+}
 
 function readVouches() {
   try {
@@ -84,7 +102,7 @@ function ChainMotif() {
 
 function PitchPanel() {
   return (
-    <aside className="flex flex-col justify-center bg-ink px-20 py-20">
+    <aside className="pitch-panel flex flex-col justify-center bg-ink px-20 py-20">
       <h1 className="text-[56px] font-semibold text-paper">Kaarigar</h1>
 
       <ChainMotif />
@@ -142,6 +160,7 @@ export default function App() {
   const [societyId, setSocietyId] = useState('s1')
   const [categoryId, setCategoryId] = useState(null)
   const [lang, setLang] = useState(readLang)
+  const [theme, setTheme] = useState(readTheme)
   const [workers, setWorkers] = useState(() => mergeWorkers(readVouches()))
   const [vouchWorker, setVouchWorker] = useState(null)
   const [flashWorkerId, setFlashWorkerId] = useState(null)
@@ -153,6 +172,10 @@ export default function App() {
     const timer = setTimeout(() => setFlashWorkerId(null), 700)
     return () => clearTimeout(timer)
   }, [flashWorkerId])
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+  }, [theme])
 
   useEffect(() => {
     if (whatsAppNonce === 0) return undefined
@@ -168,6 +191,12 @@ export default function App() {
   function handleLangChange(next) {
     setLang(next)
     writeLang(next)
+  }
+
+  function handleThemeToggle() {
+    const next = theme === 'dark' ? 'light' : 'dark'
+    setTheme(next)
+    writeTheme(next)
   }
 
   function handleWhatsAppClick() {
@@ -204,6 +233,8 @@ export default function App() {
           onCategorySelect={handleCategorySelect}
           lang={lang}
           onLangChange={handleLangChange}
+          theme={theme}
+          onThemeToggle={handleThemeToggle}
         />
       )}
 

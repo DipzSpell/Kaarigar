@@ -4,15 +4,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        paper: '#F5F6FA',
-        card: '#FFFFFF',
-        ink: '#22284D',
-        inksoft: '#5A6080',
-        amber: '#E8A33D',
-        amberdeep: '#B8761A',
-        ambertint: '#FDF3E2',
-        line: '#E3E5EE',
-        whatsapp: '#25D366',
+        paper: 'rgb(var(--paper) / <alpha-value>)',
+        card: 'rgb(var(--card) / <alpha-value>)',
+        ink: 'rgb(var(--ink) / <alpha-value>)',
+        inksoft: 'rgb(var(--inksoft) / <alpha-value>)',
+        amber: 'rgb(var(--amber) / <alpha-value>)',
+        amberdeep: 'rgb(var(--amberdeep) / <alpha-value>)',
+        ambertint: 'rgb(var(--ambertint) / <alpha-value>)',
+        line: 'rgb(var(--line) / <alpha-value>)',
+        whatsapp: 'rgb(var(--whatsapp) / <alpha-value>)',
       },
       fontFamily: {
         sans: ['Mukta', 'system-ui', 'sans-serif'],

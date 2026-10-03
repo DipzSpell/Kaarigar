@@ -6,6 +6,44 @@
   box-sizing: border-box;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Theme colours as raw channels, so Tailwind can still apply opacity
+     modifiers (e.g. text-amberdeep/75). */
+  --paper: 245 246 250;
+  --card: 255 255 255;
+  --ink: 34 40 77;
+  --inksoft: 90 96 128;
+  --amber: 232 163 61;
+  --amberdeep: 184 118 26;
+  --ambertint: 253 243 226;
+  --line: 227 229 238;
+  --whatsapp: 37 211 102;
+}
+
+:root[data-theme='dark'] {
+  --paper: 21 24 46;
+  --card: 30 34 64;
+  --ink: 236 238 248;
+  --inksoft: 154 161 196;
+  --amber: 232 163 61;
+  --amberdeep: 240 185 100;
+  --ambertint: 58 46 26;
+  --line: 46 51 87;
+  --whatsapp: 37 211 102;
+}
+
+/* Elements that must resist theming, by pinning the variables they read. */
+.pitch-panel {
+  --ink: 34 40 77;
+  --paper: 245 246 250;
+}
+
+.app-on-amber {
+  --ink: 34 40 77;
+}
+
+.app-on-whatsapp {
+  --card: 255 255 255;
 }
 
 body {

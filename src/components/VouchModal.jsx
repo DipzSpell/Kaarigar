@@ -63,7 +63,7 @@ export default function VouchModal({
 
           <button
             type="submit"
-            className="mt-4 flex h-12 w-full items-center justify-center rounded-[12px] bg-amber text-[15px] font-semibold text-ink transition-colors active:bg-amberdeep"
+            className="app-on-amber mt-4 flex h-12 w-full items-center justify-center rounded-[12px] bg-amber text-[15px] font-semibold text-ink transition-colors active:bg-amberdeep"
           >
             {t.confirm}
           </button>

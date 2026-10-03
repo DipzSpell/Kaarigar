@@ -77,7 +77,7 @@ export default function WorkerCard({
         <div className="flex gap-2">
           <a
             href={'tel:' + worker.phone}
-            className="flex h-12 flex-1 items-center justify-center rounded-[12px] bg-amber text-[15px] font-semibold text-ink active:bg-amberdeep"
+            className="app-on-amber flex h-12 flex-1 items-center justify-center rounded-[12px] bg-amber text-[15px] font-semibold text-ink active:bg-amberdeep"
           >
             {t.call}
           </a>
@@ -86,7 +86,7 @@ export default function WorkerCard({
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => onWhatsAppClick(worker)}
-            className="flex h-12 flex-1 items-center justify-center rounded-[12px] bg-whatsapp text-[15px] font-semibold text-card"
+            className="app-on-whatsapp flex h-12 flex-1 items-center justify-center rounded-[12px] bg-whatsapp text-[15px] font-semibold text-card"
           >
             {t.whatsapp}
           </a>

@@ -44,6 +44,8 @@ export default function Home({
   onCategorySelect,
   lang,
   onLangChange,
+  theme,
+  onThemeToggle,
 }) {
   const t = strings[lang]
 
@@ -56,6 +58,15 @@ export default function Home({
         </div>
 
         <div className="flex h-11 shrink-0 items-center">
+          <button
+            type="button"
+            onClick={onThemeToggle}
+            className="mr-2 flex h-11 items-center text-[15px] text-inksoft"
+          >
+            {theme === 'dark' ? 'Light' : 'Dark'}
+          </button>
+          <span className="mr-2 h-4 w-px bg-line" />
+
           {LANGS.map((option, index) => (
             <div key={option.id} className="flex h-11 items-center">
               {index > 0 && <span className="mx-2 h-4 w-px bg-line" />}
