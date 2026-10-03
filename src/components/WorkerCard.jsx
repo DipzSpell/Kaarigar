@@ -1,11 +1,24 @@
-import { strings } from '../strings.js'
+import { strings, whatsappMessage } from '../strings.js'
 
-export default function WorkerCard({ worker, lang, onVouchClick }) {
+export default function WorkerCard({
+  worker,
+  society,
+  category,
+  lang,
+  onVouchClick,
+  onWhatsAppClick,
+}) {
   const t = strings[lang]
   const shown = worker.vouchedBy.slice(0, 3)
   const remaining = worker.vouchCount - shown.length
   const flats =
     shown.join(', ') + (remaining > 0 ? ` ${t.more} ${remaining} ${t.more}` : '')
+
+  const waHref =
+    'https://wa.me/91' +
+    worker.phone +
+    '?text=' +
+    encodeURIComponent(whatsappMessage({ worker, society, category }))
 
   return (
     <article className="rounded-card border border-line bg-card p-4">
@@ -34,17 +47,28 @@ export default function WorkerCard({ worker, lang, onVouchClick }) {
         {t.lastCall}: {worker.lastCalled}
       </p>
 
-      <div className="mt-3.5 flex gap-2.5">
-        <a
-          href={'tel:' + worker.phone}
-          className="flex h-12 flex-1 items-center justify-center rounded-[12px] bg-amber text-[15px] font-semibold text-ink active:bg-amberdeep"
-        >
-          {t.call}
-        </a>
+      <div className="mt-3.5 flex flex-col gap-2">
+        <div className="flex gap-2">
+          <a
+            href={'tel:' + worker.phone}
+            className="flex h-12 flex-1 items-center justify-center rounded-[12px] bg-amber text-[15px] font-semibold text-ink active:bg-amberdeep"
+          >
+            {t.call}
+          </a>
+          <a
+            href={waHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => onWhatsAppClick(worker)}
+            className="flex h-12 flex-1 items-center justify-center rounded-[12px] bg-whatsapp text-[15px] font-semibold text-card"
+          >
+            {t.whatsapp}
+          </a>
+        </div>
         <button
           type="button"
           onClick={() => onVouchClick(worker)}
-          className="flex h-12 flex-1 items-center justify-center rounded-[12px] border border-line bg-card text-[15px] font-semibold text-ink active:bg-paper"
+          className="flex h-12 w-full items-center justify-center rounded-[12px] border border-line bg-card text-[15px] font-semibold text-ink active:bg-paper"
         >
           {t.vouch}
         </button>

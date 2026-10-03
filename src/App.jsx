@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Home from './components/Home.jsx'
 import WorkerList from './components/WorkerList.jsx'
+import { strings } from './strings.js'
 
 const LANG_KEY = 'kaarigar-lang'
 
@@ -103,7 +104,14 @@ export default function App() {
   const [societyId, setSocietyId] = useState('s1')
   const [categoryId, setCategoryId] = useState(null)
   const [lang, setLang] = useState(readLang)
+  const [whatsAppNonce, setWhatsAppNonce] = useState(0)
   const isDesktop = useIsDesktop()
+
+  useEffect(() => {
+    if (whatsAppNonce === 0) return undefined
+    const timer = setTimeout(() => setWhatsAppNonce(0), 4000)
+    return () => clearTimeout(timer)
+  }, [whatsAppNonce])
 
   function handleCategorySelect(id) {
     setCategoryId(id)
@@ -113,6 +121,10 @@ export default function App() {
   function handleLangChange(next) {
     setLang(next)
     writeLang(next)
+  }
+
+  function handleWhatsAppClick() {
+    setWhatsAppNonce((nonce) => nonce + 1)
   }
 
   const screens = (
@@ -134,13 +146,30 @@ export default function App() {
           lang={lang}
           onBack={() => setScreen('home')}
           onVouchClick={() => {}}
+          onWhatsAppClick={handleWhatsAppClick}
         />
       )}
     </>
   )
 
+  const whatsAppBar = whatsAppNonce > 0 && (
+    <div
+      key={whatsAppNonce}
+      className="animate-toast-fade fixed inset-x-0 z-50 mx-4 rounded-[12px] bg-ink px-3.5 py-3.5 text-[14px] text-paper"
+      style={{ bottom: 'calc(16px + env(safe-area-inset-bottom, 0px))' }}
+      role="status"
+    >
+      {strings[lang].whatsappReady}
+    </div>
+  )
+
   if (!isDesktop) {
-    return screens
+    return (
+      <>
+        {screens}
+        {whatsAppBar}
+      </>
+    )
   }
 
   return (
@@ -149,6 +178,7 @@ export default function App() {
       <div className="flex items-center justify-center bg-paper">
         <div className="app-frame">{screens}</div>
       </div>
+      {whatsAppBar}
     </div>
   )
 }

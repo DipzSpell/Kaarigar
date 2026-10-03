@@ -20,6 +20,8 @@ export const strings = {
     countWord: 'kaarigar',
     noCount: 'Abhi koi nahi',
     flatPlaceholder: 'Jaise B-402',
+    whatsapp: 'WhatsApp',
+    whatsappReady: 'WhatsApp khul raha hai — message ready hai, bas send dabao',
   },
   hindi: {
     tagline: 'वो कारीगर जिसे आपके पड़ोसी बुला चुके हैं',
@@ -42,5 +44,11 @@ export const strings = {
     countWord: 'कारीगर',
     noCount: 'अभी कोई नहीं',
     flatPlaceholder: 'जैसे B-402',
+    whatsapp: 'WhatsApp',
+    whatsappReady: 'WhatsApp खुल रहा है — मैसेज तैयार है, बस भेजो दबाओ',
   },
+}
+
+export function whatsappMessage({ worker, society, category }) {
+  return `नमस्ते ${worker.name} जी, मैं ${society.name} से हूँ। आपका नंबर Kaarigar ऐप पर मिला — हमारी सोसाइटी के ${worker.vouchCount} लोग आपको बुला चुके हैं। ${category.hindi} का काम है, कब आ सकते हैं?`
 }

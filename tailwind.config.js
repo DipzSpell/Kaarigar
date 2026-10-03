@@ -12,6 +12,7 @@ export default {
         amberdeep: '#B8761A',
         ambertint: '#FDF3E2',
         line: '#E3E5EE',
+        whatsapp: '#25D366',
       },
       fontFamily: {
         sans: ['Mukta', 'system-ui', 'sans-serif'],

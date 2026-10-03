@@ -58,3 +58,17 @@ body {
 .animate-vouch-slide-up {
   animation: vouch-slide-up 200ms ease-out;
 }
+
+@keyframes toast-fade {
+  0%,
+  75% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.animate-toast-fade {
+  animation: toast-fade 4s ease-in forwards;
+}

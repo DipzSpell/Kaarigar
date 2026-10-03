@@ -8,6 +8,7 @@ export default function WorkerList({
   lang,
   onBack,
   onVouchClick,
+  onWhatsAppClick,
 }) {
   const t = strings[lang]
   const category = categories.find((item) => item.id === categoryId)
@@ -48,8 +49,11 @@ export default function WorkerList({
             <WorkerCard
               key={worker.id}
               worker={worker}
+              society={society}
+              category={category}
               lang={lang}
               onVouchClick={onVouchClick}
+              onWhatsAppClick={onWhatsAppClick}
             />
           ))}
         </div>
