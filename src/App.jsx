@@ -100,39 +100,37 @@ function ChainMotif() {
   )
 }
 
-function PitchPanel() {
+function PitchPanel({ t }) {
   return (
     <aside className="pitch-panel flex flex-col justify-center bg-ink px-20 py-20">
-      <h1 className="text-[56px] font-semibold text-paper">Kaarigar</h1>
+      <h1 className="text-[56px] font-semibold text-paper">{t.title}</h1>
 
       <ChainMotif />
 
       <h2 className="max-w-[520px] text-[40px] font-semibold text-paper">
-        Jab AC kharab hota hai, aap Google nahi kholte. Padosi se poochte ho.
+        {t.pitchHeadline}
       </h2>
 
       <p className="mt-8 max-w-[520px] text-[20px] leading-[1.5] text-[#C9CEE4]">
-        Har society me ek banda hai jiska electrician sabka electrician ban
-        jata hai. Ye network pehle se hai — bas kahin likha nahi hai. Kaarigar
-        usko likh deta hai.
+        {t.pitchBody}
       </p>
 
       <div className="mt-10 flex gap-12">
         <div>
           <p className="text-[32px] font-semibold text-amber">0%</p>
-          <p className="text-[15px] text-[#8C93B5]">Commission</p>
+          <p className="text-[15px] text-[#8C93B5]">{t.pitchCommission}</p>
         </div>
         <div>
           <p className="text-[32px] font-semibold text-amber">0</p>
-          <p className="text-[15px] text-[#8C93B5]">App kaarigar ke liye</p>
+          <p className="text-[15px] text-[#8C93B5]">{t.pitchApp}</p>
         </div>
         <div>
           <p className="text-[32px] font-semibold text-amber">3</p>
-          <p className="text-[15px] text-[#8C93B5]">Societies live</p>
+          <p className="text-[15px] text-[#8C93B5]">{t.pitchSocieties}</p>
         </div>
       </div>
 
-      <p className="mt-10 text-[15px] text-[#8C93B5]">Team CoDeOn</p>
+      <p className="mt-10 text-[15px] text-[#8C93B5]">{t.pitchTeam}</p>
     </aside>
   )
 }
@@ -282,7 +280,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <PitchPanel />
+      <PitchPanel t={strings[lang]} />
       <div className="flex items-center justify-center bg-paper">
         <div className="app-frame">{screens}</div>
       </div>

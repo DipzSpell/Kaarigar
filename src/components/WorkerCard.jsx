@@ -14,9 +14,7 @@ export default function WorkerCard({
   const remaining = worker.vouchCount - shown.length
   const moreSuffix =
     remaining > 0
-      ? lang === 'en'
-        ? ` and ${remaining} more`
-        : ` ${t.more} ${remaining} ${t.more}`
+      ? ` ${t.morePrefix} ${remaining} ${t.moreSuffix}`
       : ''
   const flats =
     shown.join(', ') + moreSuffix

@@ -144,7 +144,7 @@ export default function Home({
     <div className="mx-auto max-w-[480px] px-5 pt-6">
       <header className="flex items-start justify-between gap-3">
         <div>
-          <h1 className="text-[34px] font-semibold text-ink">Kaarigar</h1>
+          <h1 className="text-[34px] font-semibold text-ink">{t.title}</h1>
           <p className="text-[13px] tracking-[2px] text-inksoft">{t.tagline}</p>
         </div>
 
@@ -154,7 +154,7 @@ export default function Home({
             onClick={onThemeToggle}
             className="mr-2 flex h-11 items-center text-[15px] text-inksoft"
           >
-            {theme === 'dark' ? 'Light' : 'Dark'}
+            {theme === 'dark' ? t.themeLight : t.themeDark}
           </button>
           <span className="mr-2 h-4 w-px bg-line" />
 
@@ -203,7 +203,7 @@ export default function Home({
         onClick={handleLocate}
         className="mt-3 h-12 w-full rounded-card border border-line bg-card text-[15px] text-ink active:bg-paper"
       >
-        {locating ? 'Dhundh rahe hain...' : 'Meri location se dhundho'}
+        {locating ? t.locateBusy : t.locateBtn}
       </button>
 
       {locateResult && (
@@ -213,8 +213,8 @@ export default function Home({
           }`}
         >
           {locateResult.error
-            ? 'Location nahi mili — list se chun lo'
-            : `${locateResult.name} — ${locateResult.distance.toFixed(1)} km door`}
+            ? t.locateError
+            : `${locateResult.name} — ${locateResult.distance.toFixed(1)} ${t.kmAway}`}
         </p>
       )}
 
@@ -222,7 +222,7 @@ export default function Home({
         htmlFor="address"
         className="mb-1.5 mt-3 block text-[13px] text-inksoft"
       >
-        Aapka address
+        {t.addressLabel}
       </label>
       <div className="flex gap-3">
         <input
@@ -233,7 +233,7 @@ export default function Home({
           onKeyDown={(event) => {
             if (event.key === 'Enter') handleAddressSubmit()
           }}
-          placeholder="Ya apna address likho — jaise Sector 4, Kopar Khairane"
+          placeholder={t.addressPlaceholder}
           className="h-12 w-full rounded-card border border-line bg-card px-[14px] text-[15px] text-ink active:bg-paper"
         />
         <button
@@ -241,19 +241,19 @@ export default function Home({
           onClick={handleAddressSubmit}
           className="h-12 shrink-0 rounded-card border border-line bg-card px-4 text-[15px] text-ink active:bg-paper"
         >
-          Dhundho
+          {t.addressBtn}
         </button>
       </div>
 
       {addressResult && (
         <div className="mt-2 text-[13px]">
           {addressResult.name ? (
-            <p className="text-amberdeep">{addressResult.name} mila</p>
+            <p className="text-amberdeep">
+              {addressResult.name} {t.addressFoundWord}
+            </p>
           ) : (
             <>
-              <p className="text-inksoft">
-                Ye area abhi list me nahi hai — aap pehle ho sakte ho.
-              </p>
+              <p className="text-inksoft">{t.addressNotFound}</p>
               <p className="text-[15px] text-ink">{addressResult.address}</p>
             </>
           )}
