@@ -1,7 +1,27 @@
+import { useState } from 'react'
+import Home from './components/Home.jsx'
+
 export default function App() {
+  const [screen, setScreen] = useState('home')
+  const [societyId, setSocietyId] = useState('s1')
+  const [categoryId, setCategoryId] = useState(null)
+
+  function handleCategorySelect(id) {
+    setCategoryId(id)
+    setScreen('list')
+  }
+
   return (
-    <div className="flex min-h-[100dvh] items-center justify-center">
-      <h1 className="text-[28px] font-semibold text-ink">Kaarigar</h1>
-    </div>
+    <>
+      {screen === 'home' && (
+        <Home
+          societyId={societyId}
+          onSocietyChange={setSocietyId}
+          onCategorySelect={handleCategorySelect}
+        />
+      )}
+
+      {screen === 'list' && <div />}
+    </>
   )
 }
