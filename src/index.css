@@ -13,46 +13,36 @@ body {
   min-height: 100dvh;
 }
 
-/* Phone-shaped frame on desktop. Below 640px this is a plain full-screen
-   container: no frame, no shadow, no bar. */
-.app-frame {
+/* Below 768px the app fills the screen exactly as it always has — full
+   width, no frame, no shadow. The two-column desktop layout turns on only
+   at 768px. */
+.app-shell {
   min-height: 100dvh;
 }
 
-.app-frame-bar {
-  display: none;
-}
-
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   body {
     min-height: 100vh;
   }
 
   #root {
-    display: flex;
     min-height: 100vh;
-    align-items: center;
-    justify-content: center;
+  }
+
+  .app-shell {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    min-height: 100vh;
   }
 
   .app-frame {
-    width: 420px;
-    height: 860px;
+    width: 400px;
+    height: 820px;
     min-height: 0;
     overflow-y: auto;
     @apply border border-line bg-card;
-    border-radius: 32px;
-    box-shadow: 0 20px 60px rgba(34, 40, 77, 0.1);
-  }
-
-  .app-frame-bar {
-    display: flex;
-    height: 44px;
-    align-items: center;
-    justify-content: center;
-    @apply border-b border-line bg-paper text-ink;
-    font-size: 15px;
-    font-weight: 600;
+    border-radius: 36px;
+    box-shadow: 0 24px 70px rgba(34, 40, 77, 0.14);
   }
 }
 
