@@ -6,3 +6,16 @@ body {
   @apply bg-paper text-ink font-sans;
   min-height: 100dvh;
 }
+
+@keyframes vouch-slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-vouch-slide-up {
+  animation: vouch-slide-up 200ms ease-out;
+}
