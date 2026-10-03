@@ -1,7 +1,10 @@
 # Dependencies
 node_modules/
+jspm_packages/
+bower_components/
+web_modules/
 
-# Secrets — API keys live in .env and are NEVER committed
+# Secrets
 .env
 .env.*
 !.env.example
@@ -10,30 +13,72 @@ node_modules/
 dist/
 dist-ssr/
 *.local
+.next/
+out/
+.nuxt/
+.vuepress/dist/
+**/.vitepress/dist/
+**/.vitepress/cache/
+.docusaurus/
+.serverless/
+.fusebox/
+.dynamodb/
+build/Release/
 
-# Logs
+# Logs, reports, and runtime data
 logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+pids
+*.pid
+*.pid.lock
+*.seed
 
-# Editor / IDE
+# Coverage
+coverage/
+.nyc_output/
+*.lcov
+lib-cov/
+
+# Editor and OS files
 .vscode/*
 !.vscode/extensions.json
+.vscode-test/
 .idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-
-# OS cruft
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# Build cache
+# Tool caches
 .cache/
+.parcel-cache/
 .vite/
+.temp/
+.npm/
+.eslintcache
+.stylelintcache
+.rpt2_cache/
+.rts2_cache_*/
+.grunt/
+.node_repl_history
+.lock-wscript
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+.yarn-integrity
+.pnp.*
+*.tsbuildinfo
+*.tgz
+.tern-port
