@@ -165,3 +165,56 @@ body {
     animation: none;
   }
 }
+
+/* Shared button polish: a pointer cursor on desktop, an amber keyboard
+   focus ring, and a pressed state that scales down and darkens slightly. */
+.press {
+  cursor: pointer;
+}
+
+.press:focus-visible {
+  outline: 2px solid rgb(var(--amber));
+  outline-offset: 2px;
+}
+
+.press:active {
+  transform: scale(0.97);
+  filter: brightness(0.94);
+  transition: transform 120ms ease-out, filter 120ms ease-out;
+}
+
+/* Category cards additionally thicken their amber left border on press. */
+.press-category:active {
+  border-left-width: 5px;
+}
+
+/* First-load entrance: category cards fade and rise, once only. The class
+   is applied only while a run is active and removed when it ends so the
+   animation can never replay on re-render. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.enter {
+  animation: rise-in 240ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .press,
+  .press:active {
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+
+  .enter {
+    animation: none;
+  }
+}

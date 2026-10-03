@@ -6,6 +6,8 @@ export default function WorkerCard({
   category,
   flash,
   lang,
+  enter = false,
+  enterDelay = 0,
   onVouchClick,
   onWhatsAppClick,
 }) {
@@ -26,7 +28,12 @@ export default function WorkerCard({
     encodeURIComponent(whatsappMessage({ worker, society, category }))
 
   return (
-    <article className="rounded-card border border-line bg-card p-4">
+    <article
+      style={enter ? { animationDelay: `${enterDelay}ms` } : undefined}
+      className={`rounded-card border border-line bg-card p-4 ${
+        enter ? 'enter' : ''
+      }`}
+    >
       <div className="flex items-baseline justify-between gap-3">
         <h3 className="min-w-0 break-words text-[20px] font-semibold text-ink">
           {worker.name}
@@ -75,7 +82,7 @@ export default function WorkerCard({
         <div className="flex gap-2">
           <a
             href={'tel:' + worker.phone}
-            className="app-on-amber flex h-12 flex-1 items-center justify-center rounded-[12px] bg-amber text-[15px] font-semibold text-ink active:bg-amberdeep"
+            className="press app-on-amber flex h-12 flex-1 items-center justify-center rounded-[12px] bg-amber text-[15px] font-semibold text-ink active:bg-amberdeep"
           >
             {t.call}
           </a>
@@ -84,7 +91,7 @@ export default function WorkerCard({
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => onWhatsAppClick(worker)}
-            className="app-on-whatsapp flex h-12 flex-1 items-center justify-center rounded-[12px] bg-whatsapp text-[15px] font-semibold text-card"
+            className="press app-on-whatsapp flex h-12 flex-1 items-center justify-center rounded-[12px] bg-whatsapp text-[15px] font-semibold text-card"
           >
             {t.whatsapp}
           </a>
@@ -92,7 +99,7 @@ export default function WorkerCard({
         <button
           type="button"
           onClick={() => onVouchClick(worker)}
-          className="flex h-12 w-full items-center justify-center rounded-[12px] border border-line bg-card text-[15px] font-semibold text-ink active:bg-paper"
+          className="press flex h-12 w-full items-center justify-center rounded-[12px] border border-line bg-card text-[15px] font-semibold text-ink active:bg-paper"
         >
           {t.vouch}
         </button>

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { categories, societies } from '../data.js'
 import WorkerCard from './WorkerCard.jsx'
 import { strings } from '../strings.js'
@@ -15,6 +16,14 @@ export default function WorkerList({
   const t = strings[lang]
   const category = categories.find((item) => item.id === categoryId)
   const society = societies.find((item) => item.id === societyId)
+  // Runs once per open of this list. WorkerList unmounts when you go back,
+  // so reopening a category is a fresh mount and replays the entrance.
+  const [entering, setEntering] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setEntering(false), 600)
+    return () => clearTimeout(timer)
+  }, [])
 
   const list = workers
     .filter(
@@ -47,7 +56,7 @@ export default function WorkerList({
         </div>
       ) : (
         <div className="mt-6 flex flex-col gap-3">
-          {list.map((worker) => (
+          {list.map((worker, index) => (
             <WorkerCard
               key={worker.id}
               worker={worker}
@@ -55,6 +64,8 @@ export default function WorkerList({
               category={category}
               flash={worker.id === flashWorkerId}
               lang={lang}
+              enter={entering}
+              enterDelay={index * 50}
               onVouchClick={onVouchClick}
               onWhatsAppClick={onWhatsAppClick}
             />

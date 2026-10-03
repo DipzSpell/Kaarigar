@@ -82,3 +82,6 @@ desktop.ini
 *.tsbuildinfo
 *.tgz
 .tern-port
+
+# Stray nested clone (accidental local checkout, not part of the project)
+Kaarigar/

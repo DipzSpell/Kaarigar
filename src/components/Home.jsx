@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { categories, societies, workers } from '../data.js'
 import { strings } from '../strings.js'
 
@@ -65,6 +65,16 @@ export default function Home({
   const [locateResult, setLocateResult] = useState(null)
   const [address, setAddress] = useState('')
   const [addressResult, setAddressResult] = useState(null)
+  // True only for the first-load entrance window. Flipping it off keeps the
+  // one-shot class away on every later re-render (lang, theme, society).
+  const [entering, setEntering] = useState(true)
+
+  useEffect(() => {
+    if (!entering) return
+    const total = 240 + 40 * Math.max(categories.length - 1, 0)
+    const timer = setTimeout(() => setEntering(false), total)
+    return () => clearTimeout(timer)
+  }, [entering])
 
   function handleSocietyChange(nextId) {
     setLocateResult(null)
@@ -201,7 +211,7 @@ export default function Home({
       <button
         type="button"
         onClick={handleLocate}
-        className="mt-3 h-12 w-full rounded-card border border-line bg-card text-[15px] text-ink active:bg-paper"
+        className="press mt-3 h-12 w-full rounded-card border border-amber bg-card text-[15px] text-amberdeep active:bg-paper"
       >
         {locating ? t.locateBusy : t.locateBtn}
       </button>
@@ -239,7 +249,7 @@ export default function Home({
         <button
           type="button"
           onClick={handleAddressSubmit}
-          className="h-12 shrink-0 rounded-card border border-line bg-card px-4 text-[15px] text-ink active:bg-paper"
+          className="press h-12 shrink-0 rounded-card border border-amber bg-card px-4 text-[15px] text-amberdeep active:bg-paper"
         >
           {t.addressBtn}
         </button>
@@ -265,7 +275,7 @@ export default function Home({
       </h2>
 
       <div className="grid grid-cols-2 gap-3">
-        {categories.map((category) => {
+        {categories.map((category, index) => {
           const count = workers.filter(
             (worker) =>
               worker.categoryId === category.id &&
@@ -277,9 +287,12 @@ export default function Home({
               key={category.id}
               type="button"
               onClick={() => onCategorySelect(category.id)}
-              className={`min-h-24 rounded-card border-y border-r border-line border-l-[3px] bg-card p-4 text-left active:bg-paper ${
-                count > 0 ? 'border-l-amber' : 'border-l-line'
-              }`}
+              style={
+                entering ? { animationDelay: `${index * 40}ms` } : undefined
+              }
+              className={`press press-category min-h-24 rounded-card border-y border-r border-line border-l-[3px] bg-card p-4 text-left active:bg-paper ${
+                entering ? 'enter' : ''
+              } ${count > 0 ? 'border-l-amber' : 'border-l-line'}`}
             >
               <span className="block text-[15px] font-semibold text-ink">
                 {lang === 'hindi' ? category.hindi : category.name}
