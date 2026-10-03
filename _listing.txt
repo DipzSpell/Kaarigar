@@ -1,9 +1,0 @@
-﻿== root files ==
-.gitattributes
-README.md
-_listing.txt
-== nested Kaarigar ==
-.git
-.gitattributes
-README.md
-== search src anywhere ==
