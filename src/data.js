@@ -9,9 +9,9 @@ export const categories = [
 ];
 
 export const societies = [
-  { id: 's1', name: 'Sai Krupa CHS',          area: 'Diva East, Thane', type: 'society' },
-  { id: 's2', name: 'Shree Ganesh Apartment', area: 'Kopar Khairane',   type: 'society' },
-  { id: 's3', name: 'Ambe Nagar',             area: 'Diva Gaon',        type: 'village' },
+  { id: 's1', name: 'Sai Krupa CHS',          area: 'Diva East, Thane', type: 'society', lat: 19.1842, lng: 73.0381 },
+  { id: 's2', name: 'Shree Ganesh Apartment', area: 'Kopar Khairane',   type: 'society', lat: 19.1030, lng: 73.0097 },
+  { id: 's3', name: 'Ambe Nagar',             area: 'Diva Gaon',        type: 'village', lat: 19.1955, lng: 73.0512 },
 ];
 
 export const workers = [
