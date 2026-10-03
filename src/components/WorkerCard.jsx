@@ -4,6 +4,7 @@ export default function WorkerCard({
   worker,
   society,
   category,
+  flash,
   lang,
   onVouchClick,
   onWhatsAppClick,
@@ -39,14 +40,33 @@ export default function WorkerCard({
 
       <p className="mt-0.5 text-[13px] text-inksoft">{worker.note}</p>
 
-      <div className="my-3.5 w-full rounded-[12px] bg-ambertint p-3.5">
+      <div
+        className={`my-3.5 w-full rounded-[12px] bg-ambertint p-3.5 ${
+          flash ? 'vouch-flash-block' : ''
+        }`}
+      >
         <div className="flex items-baseline gap-2">
-          <span className="text-[34px] font-semibold text-amberdeep">
+          <span
+            className={`inline-block text-[34px] font-semibold text-amberdeep ${
+              flash ? 'vouch-flash-numeral' : ''
+            }`}
+          >
             {worker.vouchCount}
           </span>
           <span className="text-[15px] text-amberdeep">{t.neighbours}</span>
         </div>
-        <p className="mt-1.5 break-words text-[13px] text-amberdeep/75">{flats}</p>
+        <p className="mt-1.5 break-words text-[13px] text-amberdeep/75">
+          {flash && shown.length > 0 ? (
+            <>
+              <span className="vouch-flash-flat">{shown[0]}</span>
+              {shown.length > 1 ? ', ' : ''}
+              {shown.slice(1).join(', ')}
+              {moreSuffix}
+            </>
+          ) : (
+            flats
+          )}
+        </p>
       </div>
 
       <p className="text-[13px] text-inksoft">

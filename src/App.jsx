@@ -1,9 +1,46 @@
 import { useEffect, useState } from 'react'
 import Home from './components/Home.jsx'
 import WorkerList from './components/WorkerList.jsx'
+import VouchModal from './components/VouchModal.jsx'
 import { strings } from './strings.js'
+import { workers as baseWorkers } from './data.js'
 
 const LANG_KEY = 'kaarigar-lang'
+const STORAGE_KEY = 'kaarigar-vouches'
+
+function readVouches() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return {}
+    const parsed = JSON.parse(raw)
+    if (!parsed || typeof parsed !== 'object') return {}
+    return parsed
+  } catch {
+    return {}
+  }
+}
+
+function writeVouches(vouches) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(vouches))
+  } catch {
+    // storage unavailable — fall back silently
+  }
+}
+
+function mergeWorkers(vouches) {
+  return baseWorkers.map((worker) => {
+    const entry = vouches[worker.id]
+    if (!entry) return worker
+    const addedCount = Number(entry.addedCount) || 0
+    const addedFlats = Array.isArray(entry.addedFlats) ? entry.addedFlats : []
+    return {
+      ...worker,
+      vouchCount: worker.vouchCount + addedCount,
+      vouchedBy: [...addedFlats, ...worker.vouchedBy],
+    }
+  })
+}
 
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(() => {
@@ -105,8 +142,17 @@ export default function App() {
   const [societyId, setSocietyId] = useState('s1')
   const [categoryId, setCategoryId] = useState(null)
   const [lang, setLang] = useState(readLang)
+  const [workers, setWorkers] = useState(() => mergeWorkers(readVouches()))
+  const [vouchWorker, setVouchWorker] = useState(null)
+  const [flashWorkerId, setFlashWorkerId] = useState(null)
   const [whatsAppNonce, setWhatsAppNonce] = useState(0)
   const isDesktop = useIsDesktop()
+
+  useEffect(() => {
+    if (!flashWorkerId) return undefined
+    const timer = setTimeout(() => setFlashWorkerId(null), 700)
+    return () => clearTimeout(timer)
+  }, [flashWorkerId])
 
   useEffect(() => {
     if (whatsAppNonce === 0) return undefined
@@ -128,6 +174,27 @@ export default function App() {
     setWhatsAppNonce((nonce) => nonce + 1)
   }
 
+  function handleVouchConfirm(worker, flat) {
+    const current = readVouches()
+    const entry = current[worker.id]
+    const addedCount = entry ? Number(entry.addedCount) || 0 : 0
+    const addedFlats =
+      entry && Array.isArray(entry.addedFlats) ? entry.addedFlats : []
+
+    const next = {
+      ...current,
+      [worker.id]: {
+        addedCount: addedCount + 1,
+        addedFlats: [flat, ...addedFlats],
+      },
+    }
+
+    writeVouches(next)
+    setWorkers(mergeWorkers(next))
+    setVouchWorker(null)
+    setFlashWorkerId(worker.id)
+  }
+
   const screens = (
     <>
       {screen === 'home' && (
@@ -144,12 +211,21 @@ export default function App() {
         <WorkerList
           categoryId={categoryId}
           societyId={societyId}
+          workers={workers}
+          flashWorkerId={flashWorkerId}
           lang={lang}
           onBack={() => setScreen('home')}
-          onVouchClick={() => {}}
+          onVouchClick={setVouchWorker}
           onWhatsAppClick={handleWhatsAppClick}
         />
       )}
+
+      <VouchModal
+        worker={vouchWorker}
+        lang={lang}
+        onClose={() => setVouchWorker(null)}
+        onConfirm={handleVouchConfirm}
+      />
     </>
   )
 

@@ -1,10 +1,12 @@
-import { categories, societies, workers } from '../data.js'
+import { categories, societies } from '../data.js'
 import WorkerCard from './WorkerCard.jsx'
 import { strings } from '../strings.js'
 
 export default function WorkerList({
   categoryId,
   societyId,
+  workers,
+  flashWorkerId,
   lang,
   onBack,
   onVouchClick,
@@ -51,6 +53,7 @@ export default function WorkerList({
               worker={worker}
               society={society}
               category={category}
+              flash={worker.id === flashWorkerId}
               lang={lang}
               onVouchClick={onVouchClick}
               onWhatsAppClick={onWhatsAppClick}
