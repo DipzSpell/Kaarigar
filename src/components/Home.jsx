@@ -1,4 +1,4 @@
-import { categories, societies } from '../data.js'
+import { categories, societies, workers } from '../data.js'
 
 function ChainDivider() {
   return (
@@ -35,8 +35,8 @@ export default function Home({ societyId, onSocietyChange, onCategorySelect }) {
   return (
     <div className="mx-auto max-w-[480px] px-5 pt-6">
       <header>
-        <h1 className="text-[28px] font-semibold text-ink">Kaarigar</h1>
-        <p className="text-[13px] text-inksoft">
+        <h1 className="text-[34px] font-semibold text-ink">Kaarigar</h1>
+        <p className="text-[13px] tracking-[2px] text-inksoft">
           Wo kaarigar jise aapke padosi bula chuke hain
         </p>
       </header>
@@ -67,21 +67,40 @@ export default function Home({ societyId, onSocietyChange, onCategorySelect }) {
       </h2>
 
       <div className="grid grid-cols-2 gap-3">
-        {categories.map((category) => (
-          <button
-            key={category.id}
-            type="button"
-            onClick={() => onCategorySelect(category.id)}
-            className="min-h-24 rounded-card border border-line bg-card p-4 text-left active:bg-paper"
-          >
-            <span className="block text-[15px] font-semibold text-ink">
-              {category.name}
-            </span>
-            <span className="mt-1 block text-[13px] text-inksoft">
-              {category.hindi}
-            </span>
-          </button>
-        ))}
+        {categories.map((category) => {
+          const count = workers.filter(
+            (worker) =>
+              worker.categoryId === category.id &&
+              worker.societyId === societyId,
+          ).length
+
+          return (
+            <button
+              key={category.id}
+              type="button"
+              onClick={() => onCategorySelect(category.id)}
+              className={`min-h-24 rounded-card border-y border-r border-line border-l-[3px] bg-card p-4 text-left active:bg-paper ${
+                count > 0 ? 'border-l-amber' : 'border-l-line'
+              }`}
+            >
+              <span className="block text-[15px] font-semibold text-ink">
+                {category.name}
+              </span>
+              <span className="mt-1 block text-[13px] text-inksoft">
+                {category.hindi}
+              </span>
+              {count > 0 ? (
+                <span className="mt-2.5 block text-[13px] text-amberdeep">
+                  {count} kaarigar
+                </span>
+              ) : (
+                <span className="mt-2.5 block text-[13px] text-inksoft">
+                  Abhi koi nahi
+                </span>
+              )}
+            </button>
+          )
+        })}
       </div>
     </div>
   )
